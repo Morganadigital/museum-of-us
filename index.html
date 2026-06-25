@@ -10,160 +10,299 @@
 html,body{width:100%;min-height:100%;}
 body{font-family:'Cormorant Garamond',serif;background:#1c0d08;overflow-x:hidden;min-height:100vh;}
 
-/* FUNDO */
-.hall-bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(ellipse 110% 55% at 50% -5%,#c8955a 0%,#9e6a38 18%,#6b3e1c 38%,#3b1c0a 58%,#1c0d08 80%);}
-.vault-arch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:480px;background:radial-gradient(ellipse 80% 100% at 50% -10%,#d4a96a 0%,#b07840 20%,#7a4a22 45%,transparent 70%);opacity:0.75;}
-.wall-left,.wall-right{position:absolute;top:0;width:22%;height:70%;background:linear-gradient(to right,#7a4822 0%,#9a6030 30%,#b87840 55%,transparent 100%);opacity:0.6;}
+/* ── FUNDO ── */
+.hall-bg{position:fixed;inset:0;z-index:0;overflow:hidden;
+  background:radial-gradient(ellipse 110% 55% at 50% -5%,#c8955a 0%,#9e6a38 18%,#6b3e1c 38%,#3b1c0a 58%,#1c0d08 80%);}
+.vault-arch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:480px;
+  background:radial-gradient(ellipse 80% 100% at 50% -10%,#d4a96a 0%,#b07840 20%,#7a4a22 45%,transparent 70%);opacity:0.75;}
+.wall-left,.wall-right{position:absolute;top:0;width:22%;height:70%;
+  background:linear-gradient(to right,#7a4822 0%,#9a6030 30%,#b87840 55%,transparent 100%);opacity:0.6;}
 .wall-left{left:0;}.wall-right{right:0;transform:scaleX(-1);}
-.floor-bg{position:absolute;bottom:0;left:0;right:0;height:38%;background:linear-gradient(to bottom,transparent 0%,#4a2e14 15%,#8a5828 55%,#b88048 100%);}
-.hall-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 40%,transparent 40%,rgba(10,4,2,0.6) 100%);}
+.floor-bg{position:absolute;bottom:0;left:0;right:0;height:38%;
+  background:linear-gradient(to bottom,transparent 0%,#4a2e14 15%,#8a5828 55%,#b88048 100%);}
+.hall-vignette{position:absolute;inset:0;
+  background:radial-gradient(ellipse 90% 80% at 50% 40%,transparent 40%,rgba(10,4,2,0.6) 100%);}
 
-/* PARTÍCULAS */
+/* luz de vela pulsando no fundo */
+.candle-glow{
+  position:fixed;bottom:-20%;left:50%;transform:translateX(-50%);
+  width:160vw;height:80vh;
+  background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(200,130,40,0.18) 0%,transparent 70%);
+  animation:candlePulse 3.5s ease-in-out infinite;
+  pointer-events:none;z-index:1;
+}
+@keyframes candlePulse{
+  0%,100%{opacity:0.6;transform:translateX(-50%) scaleX(1);}
+  50%{opacity:1;transform:translateX(-50%) scaleX(1.08);}
+}
+
+/* ── PARTÍCULAS DOURADAS ── */
 .dust{position:fixed;inset:0;z-index:2;pointer-events:none;}
-.dust-p{position:absolute;border-radius:50%;background:rgba(210,170,80,0.45);animation:floatDust linear infinite;}
-@keyframes floatDust{0%{transform:translateY(100vh);opacity:0;}8%{opacity:1;}92%{opacity:0.5;}100%{transform:translateY(-30px);opacity:0;}}
+.dust-p{position:absolute;border-radius:50%;animation:floatDust linear infinite;}
+@keyframes floatDust{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+  8%{opacity:1;}
+  92%{opacity:0.6;}
+  100%{transform:translateY(-40px) rotate(360deg);opacity:0;}
+}
 
-/* PÁGINA */
+/* ── PÁGINA ── */
 .page-wrap{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding-bottom:60px;}
 
-/* HEADER */
-header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.4s cubic-bezier(.22,1,.36,1) both;}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-.header-title{font-family:'Great Vibes',cursive;font-size:clamp(48px,13vw,95px);color:#fff;line-height:1.0;text-shadow:0 2px 30px rgba(0,0,0,0.7);margin-bottom:6px;}
-.header-tag{font-family:'Special Elite',monospace;font-size:clamp(10px,2.5vw,15px);color:#e8dcc8;letter-spacing:0.12em;}
+/* ── HEADER ── */
+header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.6s cubic-bezier(.22,1,.36,1) both;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-28px);}to{opacity:1;transform:translateY(0);}}
 
-/* GALERIA */
-.gallery-scene{
-  position:relative;
-  width:min(720px,94vw);
-  margin:0 auto;
-  animation:sceneIn 2s 0.4s cubic-bezier(.22,1,.36,1) both;
+.header-title{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(48px,13vw,95px);
+  color:#fff;line-height:1.0;
+  text-shadow:0 2px 30px rgba(0,0,0,0.7),0 0 60px rgba(200,150,60,0.4);
+  margin-bottom:6px;
+  animation:titleShimmer 4s ease-in-out infinite;
 }
-@keyframes sceneIn{from{opacity:0;transform:translateY(36px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes titleShimmer{
+  0%,100%{text-shadow:0 2px 30px rgba(0,0,0,0.7),0 0 40px rgba(200,150,60,0.3);}
+  50%{text-shadow:0 2px 30px rgba(0,0,0,0.7),0 0 80px rgba(220,170,80,0.7),0 0 120px rgba(200,130,40,0.3);}
+}
+.header-tag{font-family:'Special Elite',monospace;font-size:clamp(10px,2.5vw,15px);color:#e8dcc8;letter-spacing:0.12em;
+  animation:fadeIn 2s 1s both;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-.cornice{height:18px;background:repeating-linear-gradient(90deg,#8a6118 0px,#c8a050 4px,#a07828 8px,#d4b060 12px,#8a6118 16px);border-radius:3px 3px 0 0;box-shadow:0 -2px 0 #6a4810,0 2px 8px rgba(0,0,0,0.5);}
+/* ── GALERIA ── */
+.gallery-scene{
+  position:relative;width:min(720px,94vw);margin:0 auto;
+  animation:sceneIn 2s 0.5s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes sceneIn{from{opacity:0;transform:translateY(40px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+.cornice{height:18px;
+  background:repeating-linear-gradient(90deg,#8a6118 0px,#c8a050 4px,#a07828 8px,#d4b060 12px,#8a6118 16px);
+  border-radius:3px 3px 0 0;
+  box-shadow:0 -2px 0 #6a4810,0 2px 8px rgba(0,0,0,0.5);
+  /* brilho percorrendo a cornija */
+  position:relative;overflow:hidden;
+}
+.cornice::after{
+  content:'';position:absolute;top:0;left:-40%;width:30%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,240,160,0.5),transparent);
+  animation:corniceGleam 4s ease-in-out infinite;
+}
+@keyframes corniceGleam{0%{left:-40%;}100%{left:130%;}}
 
 .gallery-wall{
   background:#5c1520;
   padding:52px 18px 28px;
   position:relative;
   box-shadow:inset 0 0 80px rgba(0,0,0,0.55),0 0 0 2px #7a2030;
+  /* luz ambiente pulsando dentro da parede */
+  animation:wallBreath 5s ease-in-out infinite;
+}
+@keyframes wallBreath{
+  0%,100%{box-shadow:inset 0 0 80px rgba(0,0,0,0.55),0 0 0 2px #7a2030;}
+  50%{box-shadow:inset 0 0 60px rgba(0,0,0,0.4),inset 0 0 100px rgba(180,80,30,0.12),0 0 0 2px #7a2030;}
 }
 
-/* LUSTRE */
-.chandelier-wrap{position:absolute;top:-13px;left:50%;transform:translateX(-50%);z-index:30;animation:sway 6s ease-in-out infinite;transform-origin:top center;}
-@keyframes sway{0%{transform:translateX(-50%) rotate(-1.8deg);}50%{transform:translateX(-50%) rotate(1.8deg);}100%{transform:translateX(-50%) rotate(-1.8deg);}}
-.chandelier-svg{width:clamp(44px,7vw,68px);filter:drop-shadow(0 0 14px rgba(255,220,120,0.9)) drop-shadow(0 0 30px rgba(255,200,80,0.5));}
+/* ── LUSTRE ── */
+.chandelier-wrap{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  z-index:30;animation:sway 6s ease-in-out infinite;transform-origin:top center;
+}
+@keyframes sway{
+  0%{transform:translateX(-50%) rotate(-2deg);}
+  50%{transform:translateX(-50%) rotate(2deg);}
+  100%{transform:translateX(-50%) rotate(-2deg);}
+}
+.chandelier-svg{
+  width:clamp(44px,7vw,68px);
+  filter:drop-shadow(0 0 14px rgba(255,220,120,0.9)) drop-shadow(0 0 30px rgba(255,200,80,0.5));
+  animation:chandelierFlicker 2.8s ease-in-out infinite;
+}
+@keyframes chandelierFlicker{
+  0%,100%{filter:drop-shadow(0 0 14px rgba(255,220,120,0.9)) drop-shadow(0 0 30px rgba(255,200,80,0.5));}
+  30%{filter:drop-shadow(0 0 20px rgba(255,240,140,1)) drop-shadow(0 0 50px rgba(255,210,80,0.8));}
+  60%{filter:drop-shadow(0 0 10px rgba(255,200,100,0.7)) drop-shadow(0 0 20px rgba(255,180,60,0.4));}
+}
 
-/* ── GRID DE QUADROS ─────────────────────────────── */
-/*
-  Desktop: linha 1 → 5 col, linha 2 → 4 col  (layout original)
-  Mobile:  grid fixo de 3 colunas iguais, todos os 9 quadros
-*/
-
-/* Desktop layout (≥ 560px) */
+/* ── LAYOUT DESKTOP ── */
 .frames-layout{display:flex;flex-direction:column;gap:14px;align-items:center;}
 .frames-row{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:flex-end;gap:10px;width:100%;}
 
-/* QUADRO — desktop */
+/* ── QUADRO ── */
 .frame-unit{
-  display:flex;flex-direction:column;align-items:center;gap:5px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
   cursor:pointer;
-  opacity:0;animation:frameIn 0.7s cubic-bezier(.22,1,.36,1) both;
-  transition:transform 0.3s ease;
+  opacity:0;
+  animation:frameIn 0.9s cubic-bezier(.22,1,.36,1) both;
   flex-shrink:0;
+  transform-origin:top center;
 }
-.frame-unit:hover{transform:scale(1.05) translateY(-3px);}
-@keyframes frameIn{from{opacity:0;transform:translateY(20px) scale(0.9);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes frameIn{
+  from{opacity:0;transform:translateY(32px) scale(0.85) rotate(-3deg);}
+  to{opacity:1;transform:translateY(0) scale(1) rotate(0deg);}
+}
 
+/* balanço hover desktop */
+.frame-unit:hover{animation:frameIn 0s forwards,swing 0.65s ease-in-out;}
+@keyframes swing{
+  0%{transform:rotate(0);}20%{transform:rotate(-4deg);}
+  50%{transform:rotate(3.5deg);}75%{transform:rotate(-2deg);}100%{transform:rotate(0);}
+}
+
+/* ── MOLDURA ── */
 .frame-gold{
-  position:relative;
+  position:relative;overflow:hidden;
   padding:7px;
   background:linear-gradient(145deg,#c8a040 0%,#f0d070 25%,#a07828 50%,#d4a848 75%,#8a6010 100%);
   box-shadow:0 0 0 1.5px #6a4808,inset 0 0 0 1.5px rgba(255,230,120,0.5),3px 5px 18px rgba(0,0,0,0.7);
   border-radius:2px;
+  transition:box-shadow 0.3s;
+  /* brilho ambiente constante e sutil */
+  animation:frameGlow 4s ease-in-out infinite;
+}
+@keyframes frameGlow{
+  0%,100%{box-shadow:0 0 0 1.5px #6a4808,inset 0 0 0 1.5px rgba(255,230,120,0.5),3px 5px 18px rgba(0,0,0,0.7);}
+  50%{box-shadow:0 0 0 1.5px #6a4808,inset 0 0 0 1.5px rgba(255,230,120,0.5),3px 5px 18px rgba(0,0,0,0.7),0 0 12px rgba(200,160,60,0.25);}
 }
 .frame-gold::before{content:'';position:absolute;inset:4px;border:1.5px solid rgba(100,60,10,0.5);border-radius:1px;pointer-events:none;z-index:5;}
 
-.frame-photo{display:block;object-fit:cover;position:relative;z-index:1;}
+/* reflexo de luz passando */
+.frame-gold::after{
+  content:'';position:absolute;top:-60%;left:-60%;
+  width:40%;height:220%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,240,160,0.55) 50%,transparent 70%);
+  transform:skewX(-15deg) translateX(-200%);
+  z-index:20;pointer-events:none;
+}
+.frame-unit:hover .frame-gold::after,
+.frame-unit.touched .frame-gold::after{
+  animation:gleam 0.7s ease forwards;
+}
+@keyframes gleam{
+  0%{transform:skewX(-15deg) translateX(-200%);}
+  100%{transform:skewX(-15deg) translateX(500%);}
+}
+.frame-unit:hover .frame-gold{box-shadow:0 0 0 1.5px #6a4808,inset 0 0 0 1.5px rgba(255,230,120,0.5),4px 8px 28px rgba(0,0,0,0.85),0 0 22px rgba(200,160,60,0.45);}
 
+.frame-photo{display:block;object-fit:cover;position:relative;z-index:1;transition:transform 0.4s ease;}
+.frame-unit:hover .frame-photo,.frame-unit.touched .frame-photo{transform:scale(1.05);}
+
+/* ── PLAQUINHA ── */
 .plate-label{
-  background:rgba(255,255,255,0.82);color:#3a2808;
+  background:rgba(255,255,255,0.85);color:#3a2808;
   font-family:'Special Elite',monospace;font-size:clamp(6px,1.6vw,9px);
   letter-spacing:0.06em;padding:2px 7px;text-align:center;border-radius:1px;white-space:nowrap;
+  box-shadow:0 1px 4px rgba(0,0,0,0.4);
+  transition:background 0.3s,color 0.3s,transform 0.3s;
+}
+.frame-unit:hover .plate-label,.frame-unit.touched .plate-label{
+  background:#c8a040;color:#fff;transform:scale(1.06);
 }
 
-/* PISO */
-.platform-floor{height:18px;background:linear-gradient(to bottom,#c8a060 0%,#9a7038 60%,#7a5020 100%);box-shadow:0 4px 20px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,220,120,0.4);}
+/* ── PISO ── */
+.platform-floor{height:18px;background:linear-gradient(to bottom,#c8a060 0%,#9a7038 60%,#7a5020 100%);
+  box-shadow:0 4px 20px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,220,120,0.4);}
 .platform-reflection{height:46px;background:linear-gradient(to bottom,rgba(180,130,70,0.2) 0%,transparent 100%);}
 
-/* MÚSICA */
-#music-btn{position:fixed;top:16px;right:16px;z-index:999;width:44px;height:44px;border-radius:50%;border:1.5px solid #c8a040;background:rgba(30,10,5,0.88);color:#d4a840;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(200,160,60,0.3);backdrop-filter:blur(6px);transition:transform 0.2s,background 0.2s;user-select:none;}
-#music-btn:hover{transform:scale(1.1);background:rgba(80,20,10,0.9);}
+/* ── MÚSICA ── */
+#music-btn{position:fixed;top:16px;right:16px;z-index:999;width:44px;height:44px;border-radius:50%;
+  border:1.5px solid #c8a040;background:rgba(30,10,5,0.88);color:#d4a840;font-size:20px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 18px rgba(200,160,60,0.3);backdrop-filter:blur(6px);
+  transition:transform 0.2s,background 0.2s;user-select:none;}
+#music-btn:hover{transform:scale(1.1);}
 #music-btn.playing{animation:glowPulse 2.2s ease-in-out infinite;}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 18px rgba(200,160,60,0.3);}50%{box-shadow:0 0 32px rgba(200,160,60,0.75);}}
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;z-index:900;background:rgba(8,3,1,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;}
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;z-index:900;
+  background:rgba(8,3,1,0.93);backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;padding:16px;}
 .modal-bg.open{display:flex;}
-.modal-box{position:relative;background:#3c1015;border:2px solid #c8a040;border-radius:4px;padding:28px 24px 22px;max-width:min(560px,92vw);width:100%;text-align:center;animation:modalPop 0.35s cubic-bezier(.22,1,.36,1) both;box-shadow:0 0 80px rgba(0,0,0,0.9);}
-@keyframes modalPop{from{opacity:0;transform:scale(0.88);}to{opacity:1;transform:scale(1);}}
-.modal-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#c8a040;font-size:24px;cursor:pointer;z-index:10;}
-.modal-frame-outer{display:inline-block;padding:6px;background:linear-gradient(145deg,#c8a040,#f0d070 40%,#a07828 70%,#d4a848);box-shadow:0 0 0 1.5px #6a4808,3px 5px 24px rgba(0,0,0,0.7);border-radius:2px;margin-bottom:16px;max-width:100%;}
-.modal-frame-outer img{display:block;max-width:min(400px,76vw);max-height:60vh;width:auto;height:auto;object-fit:contain;border-radius:1px;}
-.modal-title-text{font-family:'Great Vibes',cursive;font-size:clamp(26px,6vw,34px);color:#f0e8d0;margin-bottom:6px;}
+.modal-box{
+  position:relative;background:#3c1015;
+  border:2px solid #c8a040;border-radius:4px;
+  padding:28px 24px 22px;max-width:min(560px,92vw);width:100%;
+  text-align:center;
+  animation:modalPop 0.4s cubic-bezier(.22,1,.36,1) both;
+  box-shadow:0 0 80px rgba(0,0,0,0.9),0 0 40px rgba(180,120,40,0.15);
+}
+@keyframes modalPop{from{opacity:0;transform:scale(0.8) rotate(-2deg);}to{opacity:1;transform:scale(1) rotate(0);}}
+.modal-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#c8a040;font-size:24px;cursor:pointer;z-index:10;transition:transform 0.25s;}
+.modal-close:hover{transform:rotate(90deg);}
+.modal-frame-outer{
+  display:inline-block;padding:6px;
+  background:linear-gradient(145deg,#c8a040,#f0d070 40%,#a07828 70%,#d4a848);
+  box-shadow:0 0 0 1.5px #6a4808,3px 5px 24px rgba(0,0,0,0.7);
+  border-radius:2px;margin-bottom:16px;max-width:100%;
+  overflow:hidden;position:relative;
+  animation:modalFrameGlow 3s ease-in-out infinite;
+}
+@keyframes modalFrameGlow{
+  0%,100%{box-shadow:0 0 0 1.5px #6a4808,3px 5px 24px rgba(0,0,0,0.7);}
+  50%{box-shadow:0 0 0 1.5px #6a4808,3px 5px 24px rgba(0,0,0,0.7),0 0 30px rgba(200,160,60,0.4);}
+}
+.modal-frame-outer::after{
+  content:'';position:absolute;top:-60%;left:-60%;width:35%;height:220%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,240,160,0.45) 50%,transparent 70%);
+  transform:skewX(-15deg);
+  animation:gleamModal 1s 0.3s ease forwards;
+  pointer-events:none;z-index:20;
+}
+@keyframes gleamModal{0%{transform:skewX(-15deg) translateX(-100%);}100%{transform:skewX(-15deg) translateX(700%);}}
+.modal-frame-outer img{display:block;max-width:min(400px,76vw);max-height:58vh;width:auto;height:auto;object-fit:contain;border-radius:1px;}
+.modal-title-text{font-family:'Great Vibes',cursive;font-size:clamp(26px,6vw,34px);color:#f0e8d0;margin-bottom:6px;
+  animation:titleShimmer 4s ease-in-out infinite;}
 .modal-desc-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(14px,3vw,16px);color:rgba(240,232,208,0.7);line-height:1.7;}
 
-/* ══════════════════════════════════════════════════
-   MOBILE  (≤ 559px)
-   Substitui as duas .frames-row por um único grid
-   3 colunas × 3 linhas = 9 quadros igualinhos
-══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   MOBILE ≤ 559px
+   Grid 3×3 com animações escalonadas por quadro
+══════════════════════════════════════════════ */
 @media (max-width:559px){
 
-  .gallery-wall{padding:44px 12px 20px;}
+  .gallery-wall{padding:44px 10px 20px;}
 
-  /* esconde as linhas originais e usa grid */
   .frames-layout{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    grid-template-rows:auto auto auto;
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
     width:100%;
   }
+  .frames-row{display:contents;}
 
-  /* cada .frames-row vira apenas um "slot" transparente que
-     libera os filhos direto para o grid pai */
-  .frames-row{
-    display:contents; /* os filhos participam do grid do pai */
-  }
-
-  /* cada quadro ocupa 1 célula do grid */
   .frame-unit{
-    width:100%;
-    flex-shrink:1;
+    width:100%;flex-shrink:1;
+    /* cada quadro entra com leve rotação aleatória */
   }
-
-  /* moldura preenche toda a largura da célula */
-  .frame-gold{
-    width:100%;
-    padding:5px !important;
+  /* entrada mobile: cai e se ajeita */
+  @keyframes frameInMobile{
+    0%  {opacity:0;transform:translateY(-40px) rotate(var(--rot)) scale(0.7);}
+    60% {opacity:1;transform:translateY(6px) rotate(calc(var(--rot)*-0.3)) scale(1.02);}
+    100%{opacity:1;transform:translateY(0) rotate(0deg) scale(1);}
   }
+  .frame-unit{animation-name:frameInMobile;animation-duration:0.9s;animation-fill-mode:both;animation-timing-function:cubic-bezier(.22,1,.36,1);}
 
-  /* foto quadrada e fluida */
-  .frame-photo{
-    width:100% !important;
-    height:auto !important;
-    aspect-ratio:1 / 1;
-    object-fit:cover;
-  }
+  /* rotação ligeiramente diferente p/ cada quadro */
+  .frame-unit:nth-child(1){--rot:-4deg;}
+  .frame-unit:nth-child(2){--rot:2deg;}
+  .frame-unit:nth-child(3){--rot:-3deg;}
+  .frame-unit:nth-child(4){--rot:3deg;}
+  .frame-unit:nth-child(5){--rot:-2deg;}
+  .frame-unit:nth-child(6){--rot:4deg;}
+  .frame-unit:nth-child(7){--rot:-3deg;}
+  .frame-unit:nth-child(8){--rot:2deg;}
+  .frame-unit:nth-child(9){--rot:-4deg;}
 
-  .plate-label{
-    font-size:7px;
-    padding:2px 4px;
-    max-width:100%;
-    overflow:hidden;
-    text-overflow:ellipsis;
+  .frame-gold{width:100%;padding:5px !important;}
+  .frame-photo{width:100% !important;height:auto !important;aspect-ratio:1/1;object-fit:cover;}
+  .plate-label{font-size:7px;padding:2px 4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
+
+  /* balanço ao tocar */
+  .frame-unit.touched{animation:swingTouch 0.6s ease-in-out !important;}
+  @keyframes swingTouch{
+    0%{transform:rotate(0);}20%{transform:rotate(-5deg);}
+    55%{transform:rotate(4deg);}78%{transform:rotate(-2deg);}100%{transform:rotate(0);}
   }
 }
 </style>
@@ -177,6 +316,7 @@ header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.4s cubic-be
   <div class="floor-bg"></div>
   <div class="hall-vignette"></div>
 </div>
+<div class="candle-glow"></div>
 <div class="dust" id="dust"></div>
 
 <audio id="bgAudio" loop src="mp3 museum.mp3"></audio>
@@ -216,23 +356,23 @@ header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.4s cubic-be
 
         <!-- LINHA 1 — 5 quadros -->
         <div class="frames-row">
-          <div class="frame-unit" style="animation-delay:0.7s" data-title="Nosso Começo" data-desc="O momento em que tudo começou." data-src="foto1.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.2s" data-title="Nosso Começo" data-desc="O momento em que tudo começou." data-src="foto1.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold"><img class="frame-photo" src="foto1.jpg.jpg" style="width:80px;height:80px;"/></div>
             <span class="plate-label">Nosso Começo</span>
           </div>
-          <div class="frame-unit" style="animation-delay:0.85s" data-title="Dois Corações" data-desc="Juntos desde sempre." data-src="foto2.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.4s" data-title="Dois Corações" data-desc="Juntos desde sempre." data-src="foto2.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold"><img class="frame-photo" src="foto2.jpg.jpg" style="width:90px;height:105px;"/></div>
             <span class="plate-label">Dois Corações</span>
           </div>
-          <div class="frame-unit" style="animation-delay:1.0s" data-title="A Obra Prima" data-desc="O nosso maior tesouro." data-src="foto3.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.6s" data-title="A Obra Prima" data-desc="O nosso maior tesouro." data-src="foto3.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold" style="padding:9px;"><img class="frame-photo" src="foto3.jpg.jpg" style="width:120px;height:100px;"/></div>
             <span class="plate-label">A Obra Prima</span>
           </div>
-          <div class="frame-unit" style="animation-delay:0.85s" data-title="Luz & Névoa" data-desc="Amor que envolve tudo." data-src="foto4.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.4s" data-title="Luz & Névoa" data-desc="Amor que envolve tudo." data-src="foto4.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold"><img class="frame-photo" src="foto4.jpg.jpg" style="width:90px;height:105px;"/></div>
             <span class="plate-label">Luz & Névoa</span>
           </div>
-          <div class="frame-unit" style="animation-delay:0.7s" data-title="Pôr do Sol" data-desc="O horizonte é nosso." data-src="foto5.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.2s" data-title="Pôr do Sol" data-desc="O horizonte é nosso." data-src="foto5.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold"><img class="frame-photo" src="foto5.jpg.jpg" style="width:80px;height:80px;"/></div>
             <span class="plate-label">Pôr do Sol</span>
           </div>
@@ -240,19 +380,19 @@ header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.4s cubic-be
 
         <!-- LINHA 2 — 4 quadros -->
         <div class="frames-row">
-          <div class="frame-unit" style="animation-delay:1.1s" data-title="Alegria Pura" data-desc="O sorriso que ilumina tudo." data-src="foto6.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.8s" data-title="Alegria Pura" data-desc="O sorriso que ilumina tudo." data-src="foto6.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold" style="padding:8px;"><img class="frame-photo" src="foto6.jpg.jpg" style="width:100px;height:120px;"/></div>
             <span class="plate-label">Alegria Pura</span>
           </div>
-          <div class="frame-unit" style="animation-delay:1.25s" data-title="Nosso Lar" data-desc="Onde o coração descansa." data-src="foto7.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:1.0s" data-title="Nosso Lar" data-desc="Onde o coração descansa." data-src="foto7.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold" style="padding:8px;"><img class="frame-photo" src="foto7.jpg.jpg" style="width:115px;height:120px;"/></div>
             <span class="plate-label">Nosso Lar</span>
           </div>
-          <div class="frame-unit" style="animation-delay:1.25s" data-title="Horizonte" data-desc="Para onde quer que olhemos." data-src="foto8.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:1.0s" data-title="Horizonte" data-desc="Para onde quer que olhemos." data-src="foto8.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold" style="padding:7px;"><img class="frame-photo" src="foto8.jpg.jpg" style="width:100px;height:110px;"/></div>
             <span class="plate-label">Horizonte</span>
           </div>
-          <div class="frame-unit" style="animation-delay:1.1s" data-title="Eternamente" data-desc="Para sempre é pouco." data-src="foto9.jpg.jpg" onclick="openModal(this)">
+          <div class="frame-unit" style="animation-delay:0.8s" data-title="Eternamente" data-desc="Para sempre é pouco." data-src="foto9.jpg.jpg" onclick="openModal(this)">
             <div class="frame-gold" style="padding:8px;"><img class="frame-photo" src="foto9.jpg.jpg" style="width:100px;height:120px;"/></div>
             <span class="plate-label">Eternamente</span>
           </div>
@@ -278,28 +418,63 @@ header{text-align:center;padding:44px 20px 20px;animation:fadeDown 1.4s cubic-be
 </div>
 
 <script>
+/* Partículas douradas variadas */
 (function(){
   const d=document.getElementById('dust');
-  for(let i=0;i<20;i++){
-    const p=document.createElement('div');p.className='dust-p';
-    const sz=1.5+Math.random()*2.5;
-    p.style.cssText=`left:${Math.random()*100}vw;width:${sz}px;height:${sz}px;animation-duration:${14+Math.random()*22}s;animation-delay:${Math.random()*18}s;opacity:${0.15+Math.random()*0.4};`;
+  for(let i=0;i<28;i++){
+    const p=document.createElement('div');
+    p.className='dust-p';
+    const sz=1+Math.random()*3;
+    const gold=Math.random()>0.5;
+    p.style.cssText=`
+      left:${Math.random()*100}vw;
+      width:${sz}px;height:${sz}px;
+      background:${gold?'rgba(210,170,60,0.55)':'rgba(255,220,120,0.35)'};
+      animation-duration:${12+Math.random()*20}s;
+      animation-delay:${Math.random()*20}s;
+      opacity:${0.1+Math.random()*0.4};
+    `;
     d.appendChild(p);
   }
 })();
 
+/* Música */
 const audio=document.getElementById('bgAudio');
 const btn=document.getElementById('music-btn');
 let playing=false;
 function togglePlay(){
-  if(playing){audio.pause();document.getElementById('music-icon').textContent='♪';btn.classList.remove('playing');playing=false;}
-  else{audio.play().then(()=>{document.getElementById('music-icon').textContent='♫';btn.classList.add('playing');playing=true;}).catch(()=>{document.getElementById('music-icon').textContent='✕';setTimeout(()=>document.getElementById('music-icon').textContent='♪',1500);});}
+  if(playing){
+    audio.pause();
+    document.getElementById('music-icon').textContent='♪';
+    btn.classList.remove('playing');playing=false;
+  } else {
+    audio.play().then(()=>{
+      document.getElementById('music-icon').textContent='♫';
+      btn.classList.add('playing');playing=true;
+    }).catch(()=>{
+      document.getElementById('music-icon').textContent='✕';
+      setTimeout(()=>document.getElementById('music-icon').textContent='♪',1500);
+    });
+  }
 }
 
+/* Touch: balanço + gleam */
+document.querySelectorAll('.frame-unit').forEach(el=>{
+  el.addEventListener('touchstart',()=>{
+    el.classList.remove('touched');
+    void el.offsetWidth;
+    el.classList.add('touched');
+    setTimeout(()=>el.classList.remove('touched'),650);
+  },{passive:true});
+});
+
+/* Modal */
 function openModal(el){
   document.getElementById('modalTitle').textContent=el.dataset.title||'';
   document.getElementById('modalDesc').textContent=el.dataset.desc||'';
-  document.getElementById('modalImg').src=el.dataset.src||'';
+  const img=document.getElementById('modalImg');
+  img.src='';
+  setTimeout(()=>{img.src=el.dataset.src||'';},30);
   document.getElementById('modalBg').classList.add('open');
 }
 function closeModal(e){if(e.target===document.getElementById('modalBg'))closeModalDirect();}
